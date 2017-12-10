@@ -29,35 +29,26 @@ function decode(){
       }
     }
   }
-  //creates an empty array
-  occurrences=[];
-  //pushes each character's occurrence number to the occurrences array
-  objectArray.forEach(function(x){
-    occurrences.push(x.occurrence)
-  })
-  //sorts the occurrences by numerical order, descending
-  occurrences.sort((a, b) => b - a);
-  //creates an empty array
-  solution=[];
-  //this for loop with a nested for each loop is responsible for arranging the characters in order from most frequent to least frequent. It does so by iterating through every instance of occurrences and checking if an object's occurrence is equal to that position of occurrences. Since we start at 0 it will sort by most frequent to least frequent.
-  for (var m = 0; m < occurrences.length; m++)
-    objectArray.forEach(function(x){
-      if (x.occurrence==occurrences[m]) {
-        solution.push(x.char);
-      }
-    })
+  // sorts the object array by occurrence from highest to lowest
+  objectArray.sort((a,b)=>b.occurrence-a.occurrence)
   //sets a variable value
   beginning = 0;
   //sets a variable value
   end = 0;
   //iterates through the solution array and checks to see where the _ is in the array and saves that position as the end variable
-  for (var i = 0; i < solution.length; i++) {
-    if (solution[i]=='_') {
+  for (var i = 0; i < objectArray.length; i++) {
+    if (objectArray[i].char=='_') {
       end = i;
     }
   }
   //slices off all of the strings from _ through the end of the array which leaves us with the strings that make up our solution.
-  solution = solution.slice(beginning,end);
+  sliced = objectArray.slice(beginning,end);
+  //creates an empty array
+  solution = [];
+  // pushes the characters from the objectArray into a single array
+  sliced.forEach(function(x){
+    solution.push(x.char);
+  })
   //joins our strings in the solution array into a single string leaving us with a word that is our solution and returns the solution
   return solution.join('');
 }
